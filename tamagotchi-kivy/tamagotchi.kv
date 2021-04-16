@@ -1,0 +1,80 @@
+Manager:
+	Menu:
+		name: 'menu'
+	Game:
+		name: 'game'
+	GameOver:
+		name: 'gameOver'
+
+<MenuButton@Button>:
+	font_size:'50sp'
+	background_normal:'menuButton.png'
+	background_down:'menuButtonPressed.png'
+	border:90,90,90,90
+
+<Menu>:
+	BoxLayout:
+		canvas:
+			Color:
+				rgba:1,1,1,1
+			Rectangle:
+				size:self.size
+				pos:self.pos
+				source:'menuBackground.png'
+		orientation:'vertical'
+		padding:'200dp','50dp'
+		spacing:'150dp'
+		Widget:
+		BoxLayout:
+			padding:'100dp'
+			spacing:'150dp'
+			MenuButton:
+				text:'Start'
+				on_release:app.root.current = 'game'
+			MenuButton:
+				text:'Exit'
+				on_release:app.stop()
+
+<Pet>:
+	source:'pet.png'
+
+<Game>:
+	FloatLayout:
+		Label:
+			text:'Score: ' +str(root.score)
+			font_size: '70sp'
+			bold: True
+			size_hint_y: None
+			height: self.font_size
+			y = root.height*0.95 - self.height
+
+		Pet:
+			id: pet
+			allow_stretch:True
+			size_hint: None, None
+			size: root.height/15, root.height/15
+			x: root.width/2
+			y: root.height/2
+
+
+<GameOver>:
+	BoxLayout:
+		canvas:
+			Color:
+				rgba:1,1,1,1
+			Rectangle:
+				size: self.size
+				pos: self.pos
+				source:'gameOver.png'
+		orientation:'vertical'
+		padding:'600dp','70dp'
+		spacing:'150dp'
+		Widget:
+			size_hint_y: 1.5
+		MenuButton:
+			text:'Try again!'
+			on_release: app.root.current='game'
+		MenuButton:
+			text:'Exit'
+			on_release:app.stop()
+
